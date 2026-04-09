@@ -1,4 +1,4 @@
-# Calculadora de Hondt
+# Eleições - Distribuição de mandatos
 
 Web app estatica para calcular a atribuicao de mandatos por partido atraves do metodo de Hondt.
 
