@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classic Snake Repo Summary</title>
+  <style>
+    @page {
+      size: Letter;
+      margin: 0.45in;
+    }
+
+    :root {
+      --ink: #1f2a22;
+      --muted: #5b675d;
+      --accent: #2f7d4a;
+      --border: #cdd8cf;
+      --panel: #f7fbf7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: white;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 8.5in;
+      height: 10.1in;
+      margin: 0 auto;
+      padding: 0.05in;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 4px;
+      font-size: 24px;
+      line-height: 1.05;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .badge {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 8px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 14px;
+    }
+
+    section {
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      margin: 0 0 6px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    p {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.38;
+    }
+
+    ul, ol {
+      margin: 6px 0 0 18px;
+      padding: 0;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    li {
+      margin: 0 0 4px;
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      background: #fcfefc;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .arch {
+      display: grid;
+      gap: 8px;
+    }
+
+    .arch-item {
+      border-left: 3px solid var(--accent);
+      padding-left: 9px;
+    }
+
+    .arch-item strong {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    .foot {
+      margin-top: 6px;
+      font-size: 10.5px;
+      color: var(--muted);
+    }
+
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="title-row">
+      <div>
+        <h1>Classic Snake</h1>
+        <p class="subtitle">One-page repo summary based only on files in this repository</p>
+      </div>
+      <div class="badge">Static Browser App</div>
+    </div>
+
+    <div class="grid">
+      <div>
+        <section class="panel">
+          <h2>What It Is</h2>
+          <p>Classic Snake is a minimal browser-based Snake game with classic rules only. The repo provides a lightweight static page, styling, and one browser-safe script that contains both game logic and rendering/input wiring.</p>
+        </section>
+
+        <section class="panel">
+          <h2>Who It&apos;s For</h2>
+          <p>Primary persona: players who want a simple browser-playable Snake game with no framework or install-heavy setup. Developer persona: someone who wants a small static web app that is easy to open and inspect.</p>
+        </section>
+
+        <section class="panel">
+          <h2>What It Does</h2>
+          <ul>
+            <li>Renders a 20x20 game board in the browser.</li>
+            <li>Starts movement from arrow keys or <code>WASD</code>.</li>
+            <li>Prevents instant reversal into the snake&apos;s opposite direction.</li>
+            <li>Spawns food on unoccupied cells and grows the snake on eat.</li>
+            <li>Tracks score and updates live status text in the UI.</li>
+            <li>Ends the game on wall collision or self-collision.</li>
+            <li>Supports pause/resume, restart, and on-screen direction buttons.</li>
+          </ul>
+        </section>
+      </div>
+
+      <div>
+        <section class="panel">
+          <h2>How It Works</h2>
+          <div class="arch">
+            <div class="arch-item">
+              <strong>UI shell</strong>
+              <p><code>index.html</code> defines the page shell, scoreboard, status, action buttons, board container, and on-screen controls.</p>
+            </div>
+            <div class="arch-item">
+              <strong>Presentation layer</strong>
+              <p><code>styles.css</code> styles the panel layout, responsive behavior, board grid, and cell states for snake head/body and food.</p>
+            </div>
+            <div class="arch-item">
+              <strong>Game engine + controller</strong>
+              <p><code>src/game.js</code> holds state creation, direction changes, pause/restart, tick progression, collision checks, food spawning, and status generation.</p>
+            </div>
+            <div class="arch-item">
+              <strong>Data flow</strong>
+              <p>User input (keyboard/buttons) updates in-memory state, a <code>setInterval</code> tick advances the game every 140 ms, and render logic maps state back onto DOM cells, score, and status text.</p>
+            </div>
+            <div class="arch-item">
+              <strong>Services / persistence</strong>
+              <p>Not found in repo: no backend, database, API calls, local storage, build system, or framework runtime.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>How To Run</h2>
+          <ol>
+            <li>Open <code>index.html</code> directly in a browser.</li>
+            <li>Optional: serve the folder with any static server, such as <code>npx serve .</code> or <code>python -m http.server</code>.</li>
+            <li>Load the page, then use arrow keys or <code>WASD</code> to begin.</li>
+          </ol>
+        </section>
+
+        <p class="foot">Evidence sources used: <code>README.md</code>, <code>index.html</code>, <code>styles.css</code>, <code>src/game.js</code>.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Hondt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="page-glow page-glow-left"></div>
+  <div class="page-glow page-glow-right"></div>
+
+  <main class="layout">
+    <section class="hero-card">
+      <div class="hero-copy">
+        <p class="eyebrow">Eleicoes · Metodo de Hondt</p>
+        <h1>Distribuicao de mandatos, pronta a abrir no browser.</h1>
+        <p class="lead">
+          Define o numero de listas e de mandatos, introduz os votos de cada partido
+          e obtem a atribuicao final com tabela de quocientes, historico de selecao
+          e um resumo pronto para exportar em PDF.
+        </p>
+      </div>
+
+      <div class="hero-metrics" aria-label="Resumo da ferramenta">
+        <article>
+          <strong>20 listas</strong>
+          <span>Suporte maximo de partidos</span>
+        </article>
+        <article>
+          <strong>300</strong>
+          <span>Mandatos por calculo</span>
+        </article>
+        <article>
+          <strong>PDF</strong>
+          <span>Resumo exportavel no browser</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="app-shell">
+      <div class="panel panel-setup">
+        <div class="panel-header">
+          <div>
+            <p class="section-kicker">Passo 1</p>
+            <h2>Configuracao inicial</h2>
+          </div>
+          <span class="panel-badge">Obrigatorio</span>
+        </div>
+
+        <form id="setup-form" class="setup-form">
+          <label>
+            <span>Numero de listas / partidos</span>
+            <input id="party-count" name="partyCount" type="number" min="2" max="20" value="5" required>
+          </label>
+
+          <label>
+            <span>Numero de mandatos</span>
+            <input id="seat-count" name="seatCount" type="number" min="1" max="300" value="10" required>
+          </label>
+
+          <button class="primary-button" type="submit">Preparar calculo</button>
+        </form>
+      </div>
+
+      <div class="panel panel-inputs">
+        <div class="panel-header">
+          <div>
+            <p class="section-kicker">Passo 2</p>
+            <h2>Votos por lista</h2>
+          </div>
+          <span id="scenario-summary" class="panel-badge subtle">5 listas · 10 mandatos</span>
+        </div>
+
+        <form id="votes-form" class="votes-form">
+          <div id="party-fields" class="party-fields"></div>
+
+          <div class="form-actions">
+            <button class="secondary-button" id="fill-demo" type="button">Preencher exemplo</button>
+            <button class="primary-button" type="submit">Calcular mandatos</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel panel-results">
+        <div class="panel-header">
+          <div>
+            <p class="section-kicker">Resultado</p>
+            <h2>Atribuicao de mandatos</h2>
+          </div>
+          <span id="total-votes" class="panel-badge subtle">0 votos totais</span>
+        </div>
+
+        <div id="empty-state" class="empty-state">
+          <h3>A espera do calculo</h3>
+          <p>Introduz os votos de cada partido e carrega em "Calcular mandatos".</p>
+        </div>
+
+        <div id="results-content" class="results-content hidden">
+          <div class="results-toolbar">
+            <p id="results-hint" class="results-hint">
+              Para tabelas muito largas, usa scroll horizontal. O resumo PDF foca a distribuicao final.
+            </p>
+            <button id="export-pdf" class="secondary-button hidden" type="button">Exportar resumo em PDF</button>
+          </div>
+
+          <div id="seat-summary" class="seat-summary"></div>
+
+          <div class="results-grid">
+            <article class="results-card">
+              <h3>Mandatos atribuidos</h3>
+              <div class="table-wrap compact-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Lista</th>
+                      <th>Votos</th>
+                      <th>Mandatos</th>
+                    </tr>
+                  </thead>
+                  <tbody id="summary-body"></tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="results-card">
+              <h3>Selecao dos maiores quocientes</h3>
+              <div class="table-wrap tall-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Mandato</th>
+                      <th>Lista</th>
+                      <th>Divisor</th>
+                      <th>Quociente</th>
+                    </tr>
+                  </thead>
+                  <tbody id="allocation-body"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+
+          <article class="results-card quotient-card">
+            <div class="card-header-inline">
+              <h3>Tabela completa de quocientes</h3>
+              <span id="quotient-meta" class="mini-badge">0 colunas</span>
+            </div>
+            <p class="card-note">
+              Vista compacta com cabecalho e primeira coluna fixos para navegar melhor em cenarios grandes.
+            </p>
+            <div class="table-wrap quotient-wrap">
+              <table id="quotient-table" class="quotient-table"></table>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <template id="pdf-template">
+    <section class="pdf-shell">
+      <header class="pdf-header">
+        <div>
+          <p class="pdf-kicker">Resumo oficial</p>
+          <h1>Metodo de Hondt</h1>
+          <p id="pdf-scenario"></p>
+        </div>
+        <div class="pdf-metrics">
+          <div>
+            <strong id="pdf-total-votes"></strong>
+            <span>Votos totais</span>
+          </div>
+          <div>
+            <strong id="pdf-total-seats"></strong>
+            <span>Mandatos</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="pdf-block">
+        <h2>Distribuicao final</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Lista</th>
+              <th>Votos</th>
+              <th>Mandatos</th>
+            </tr>
+          </thead>
+          <tbody id="pdf-summary-body"></tbody>
+        </table>
+      </section>
+
+      <section class="pdf-block">
+        <h2>Historico de atribuicao</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Mandato</th>
+              <th>Lista</th>
+              <th>Divisor</th>
+              <th>Quociente</th>
+            </tr>
+          </thead>
+          <tbody id="pdf-allocation-body"></tbody>
+        </table>
+      </section>
+    </section>
+  </template>
+
+  <script src="./src/app.js"></script>
+</body>
+</html>
