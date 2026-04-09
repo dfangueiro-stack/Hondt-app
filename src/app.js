@@ -302,7 +302,7 @@ function buildPdfDocument() {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Eleições - Distribuição de mandatos (Método de Hondt)</title>
+      <title>Elections - Seat Distribution (D'Hondt Method)</title>
       <style>
         body { font-family: Arial, sans-serif; margin: 32px; color: #111827; }
         .header { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; border-bottom: 2px solid #e5e7eb; padding-bottom: 18px; }
@@ -325,7 +325,7 @@ function buildPdfDocument() {
       <header class="header">
         <div>
           <p class="kicker">Official summary</p>
-          <h1>Eleições - Distribuição de mandatos (Método de Hondt)</h1>
+          <h1>Elections - Seat Distribution (D'Hondt Method)</h1>
           <p>${scenario}</p>
           <p>Generated on ${generatedLabel}</p>
         </div>
