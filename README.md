@@ -1,39 +1,39 @@
-# Eleições - Distribuição de mandatos
+# Eleições - Distribuição de mandatos (Método de Hondt)
 
-Web app estatica para calcular a atribuicao de mandatos por partido atraves do metodo de Hondt.
+Static web app to calculate party seat allocation using the D'Hondt method.
 
-## Abrir no browser
+## Open in the browser
 
-Basta abrir o ficheiro `index.html` diretamente no browser.
+Just open the `index.html` file directly in the browser.
 
-Se preferires servir localmente:
+If you prefer to serve it locally:
 
 - `python -m http.server`
 - `npx serve .`
 
-## O que faz
+## Features
 
-- Suporta entre 2 e 20 listas/partidos
-- Suporta entre 1 e 300 mandatos
-- Gera automaticamente os campos para introduzir nome e votos de cada lista
-- Calcula os mandatos atribuidos pelo metodo de Hondt
-- Mostra resumo final, ordem de atribuicao dos mandatos e tabela completa de quocientes
-- Exporta um resumo em PDF usando a impressao do browser
+- Supports between 2 and 20 party lists
+- Supports between 1 and 300 seats
+- Automatically generates fields to enter each list name and vote count
+- Calculates seat allocation using the D'Hondt method
+- Shows the final summary, seat assignment order, and full quotient table
+- Exports a PDF summary using the browser print flow
 
-## Ficheiros principais
+## Main files
 
-- `index.html`: estrutura da app
-- `styles.css`: layout, responsividade e estilos de impressao
-- `src/app.js`: logica do metodo de Hondt, rendering e exportacao PDF
+- `index.html`: application structure
+- `styles.css`: layout, responsiveness, and print styles
+- `src/app.js`: D'Hondt logic, rendering, and PDF export
 
-## Publicar no GitHub Pages
+## Publish to GitHub Pages
 
-O projeto ja fica preparado para deploy automatico com GitHub Actions.
+The project is already prepared for automatic deployment with GitHub Actions.
 
-1. Cria um repositorio no GitHub e envia estes ficheiros para a branch principal.
-2. No GitHub, abre `Settings > Pages`.
-3. Em `Build and deployment`, escolhe `Source: GitHub Actions`.
-4. Faz push para a branch `main` e aguarda o workflow terminar.
-5. O site ficara disponivel no URL do GitHub Pages desse repositorio.
+1. Create a GitHub repository and push these files to the main branch.
+2. In GitHub, open `Settings > Pages`.
+3. Under `Build and deployment`, choose `Source: GitHub Actions`.
+4. Push to the `main` branch and wait for the workflow to finish.
+5. The site will be available at that repository's GitHub Pages URL.
 
-O workflow de publicacao esta em `.github/workflows/deploy-pages.yml`.
+The deployment workflow is in `.github/workflows/deploy-pages.yml`.
